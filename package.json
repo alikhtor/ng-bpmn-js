@@ -19,6 +19,9 @@
     "@angular/platform-browser": "~8.2.8",
     "@angular/platform-browser-dynamic": "~8.2.8",
     "@angular/router": "~8.2.8",
+    "bpmn-js": "^6.4.0",
+    "bpmn-js-properties-panel": "^0.33.2",
+    "bpmn-moddle": "^6.0.2",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
