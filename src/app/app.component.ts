@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Modeler from 'bpmn-js/dist/bpmn-modeler.production.min.js';
 // import BpmnPalletteModule from 'bpmn-js/lib/features/palette';
+import { cp } from 'palette/palette';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit {
       container: '#canvas',
       width: '100%',
       additionalModules: [
+          {}
         // {
         //   __init__: [ 'interactionLogger' ],
         //   interactionLogger: [ 'type', (eventBus) => {
