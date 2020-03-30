@@ -10,14 +10,33 @@ import Modeler from 'bpmn-js/dist/bpmn-modeler.production.min.js';
 export class AppComponent implements OnInit {
   modeler: any;
 
+  constructor() {}
+
   ngOnInit() {
     this.modeler = new Modeler({
       keyboard: { bindTo: document },
       container: '#canvas',
-      width: '100%'
+      width: '100%',
+      additionalModules: [
+        // {
+        //   __init__: [ 'interactionLogger' ],
+        //   interactionLogger: [ 'type', (eventBus) => {
+        //     eventBus.on('element.hover', (event) => {
+        //       console.log('here');
+        //     });
+        //   } ]
+        // }
+      ]
     });
     this.modeler.createDiagram(null, (err: any) => {
       console.log(err);
+    });
+  }
+
+  printToConsole() {
+    this.modeler.saveXML((err, xml) => {
+      console.log(err, xml);
+
     });
   }
 }
