@@ -21,7 +21,6 @@ export class AppComponent implements OnInit, OnDestroy {
       ]
     });
     this.modeler.get('canvas').zoom('fit-viewport');
-    // this.modeler.addCustomElements(customControlsModule);
     this.modeler.createDiagram(null, (err: any) => {
       console.log(err);
     });

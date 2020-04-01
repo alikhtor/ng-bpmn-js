@@ -1,4 +1,5 @@
 export default class CustomContextPad {
+  
     constructor(config, contextPad, create, elementFactory, injector, translate) {
       this.create = create;
       this.elementFactory = elementFactory;
@@ -35,17 +36,19 @@ export default class CustomContextPad {
         create.start(event, shape, element);
       }
   
-      return {
-        'append.service-task': {
-          group: 'model',
-          className: 'bpmn-icon-service-task',
-          title: translate('Append ServiceTask'),
-          action: {
-            click: appendServiceTask,
-            dragstart: appendServiceTaskStart
-          }
-        }
-      };
+      return () => {
+        return {
+          // 'append.service-task': {
+          //   group: 'model',
+          //   className: 'bpmn-icon-service-task',
+          //   title: translate('Append ServiceTask'),
+          //   action: {
+          //     click: appendServiceTask,
+          //     dragstart: appendServiceTaskStart
+          //   }
+          // }
+        };
+      }
     }
   }
   
