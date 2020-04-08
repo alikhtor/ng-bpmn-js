@@ -2,54 +2,28 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import Modeler from 'bpmn-js/dist/bpmn-modeler.production.min.js';
 import customControlsModule from '../custom';
 
+import propertiesPanelModule from 'bpmn-js-properties-panel';
+// providing camunda executable properties, too
+import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda';
+import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json';
+// import BpmnModdle from 'bpmn-moddle';
 
-// const customExtension = {
-//   name: 'Collaboration variables payload',
-//   uri: 'http://www.graphinfotec.com/schema/xml/variables',
-//   prefix: 'var',
-//   xml: {
-//     tagAlias: 'lowerCase'
-//   },
-//   types: [
-//     {
-//       name: 'ElementVariables',
-//       superClass: [
-//         'Element'
-//       ],
-//       properties: [
-//         {
-//           name: 'variables',
-//           isMany: true,
-//           type: 'Variable'
-//         }
-//       ]
-//     },
-//     {
-//       name: 'Variable',
-//       properties: [
-//         {
-//           name: 'id',
-//           type: 'String'
-//         },
-//         {
-//           name: 'name',
-//           type: 'String'
-//         },
-//         {
-//           name: 'title',
-//           type: 'String'
-//         },
-//         {
-//           name: 'value',
-//           type: 'String'
-//         }
-//       ]
-//     }
-//   ],
-//   emumerations: [],
-//   associations: []
-// };
+// moddle.fromXML(xmlStr, function(err, definitions) {
 
+//   // update id attribute
+//   definitions.set('id', 'NEW ID');
+
+//   // add a root element
+//   var bpmnProcess = moddle.create('bpmn:Process', { id: 'MyProcess_1' });
+//   definitions.get('rootElements').push(bpmnProcess);
+
+//   moddle.toXML(definitions, function(err, xmlStrUpdated) {
+
+//     // xmlStrUpdated contains new id and the added process
+
+//   });
+
+// });
 
 @Component({
   selector: 'app-root',
@@ -58,6 +32,7 @@ import customControlsModule from '../custom';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private modeler: any;
+  private moddle: any;
 
   constructor() {}
 
@@ -65,14 +40,23 @@ export class AppComponent implements OnInit, OnDestroy {
     this.modeler = new Modeler({
       keyboard: { bindTo: document },
       container: '#canvas',
+      propertiesPanel: {
+        parent: '#js-properties-panel'
+      },
       additionalModules: [
-        customControlsModule
-      ]
+        // customControlsModule,
+        propertiesPanelModule,
+        propertiesProviderModule
+      ],
+      moddleExtensions: {
+        camunda: camundaModdleDescriptor
+      },
     });
     this.modeler.get('canvas').zoom('fit-viewport');
     this.modeler.createDiagram(null, (err: any) => {
       console.log(err);
     });
+    // this.moddle = new BpmnModdle();
   }
 
   printToConsole() {
