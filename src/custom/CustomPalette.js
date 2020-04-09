@@ -33,11 +33,11 @@ export default class CustomPalette {
         spaceTool
       } = this;
   
-      // function createServiceTask(event) {
-      //   const shape = elementFactory.createShape({ type: 'bpmn:ServiceTask' });
+      function createServiceTask(event) {
+        const shape = elementFactory.createShape({ type: 'bpmn:ServiceTask' });
   
-      //   create.start(event, shape);
-      // }
+        create.start(event, shape);
+      }
 
       function createAction(type, group, className, title, options) {
 
@@ -126,15 +126,19 @@ export default class CustomPalette {
             'bpmn:ReceiveTask', 'activity', 'bpmn-icon-receive-task',
             translate('Create Task')
           ),
-          // 'create.service-task': {
-          //   group: 'activity',
-          //   className: 'bpmn-icon-service-task',
-          //   title: translate('Create ServiceTask'),
-          //   action: {
-          //     dragstart: createServiceTask,
-          //     click: createServiceTask
-          //   }
-          // }
+          // 'create.receive-task': createAction(
+          //   'bpmn:ReceiveTask', 'activity', 'bpmn-icon-receive-task',
+          //   translate('Create Task')
+          // ),
+          'create.service-task': {
+            group: 'activity',
+            className: 'bpmn-icon-service-task',
+            title: translate('Create ServiceTask'),
+            action: {
+              dragstart: createServiceTask,
+              click: createServiceTask
+            }
+          }
         }
       }
     }

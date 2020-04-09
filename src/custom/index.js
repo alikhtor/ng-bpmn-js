@@ -4,7 +4,7 @@ import CustomPalette from './CustomPalette';
 export default {
   __init__: [ 
       'customContextPad', 
-      'customPalette' 
+      'customPalette'
     ],
   customContextPad: [ 'type', CustomContextPad ],
   customPalette: [ 'type', CustomPalette ]

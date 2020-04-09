@@ -411,23 +411,23 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
   if (!popupMenu.isEmpty(element, 'bpmn-replace')) {
 
     // Replace menu entry
-    // assign(actions, {
-    //   'replace': {
-    //     group: 'edit',
-    //     className: 'bpmn-icon-screw-wrench',
-    //     title: translate('Change type'),
-    //     action: {
-    //       click: function(event, element) {
+    assign(actions, {
+      'replace': {
+        group: 'edit',
+        className: 'bpmn-icon-screw-wrench',
+        title: translate('Change type'),
+        action: {
+          click: function(event, element) {
 
-    //         var position = assign(getReplaceMenuPosition(element), {
-    //           cursor: { x: event.x, y: event.y }
-    //         });
+            var position = assign(getReplaceMenuPosition(element), {
+              cursor: { x: event.x, y: event.y }
+            });
 
-    //         popupMenu.open(element, 'bpmn-replace', position);
-    //       }
-    //     }
-    //   }
-    // });
+            popupMenu.open(element, 'bpmn-replace', position);
+          }
+        }
+      }
+    });
   }
 
   if (isAny(businessObject, [

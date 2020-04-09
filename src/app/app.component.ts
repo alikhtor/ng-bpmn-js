@@ -1,12 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import Modeler from 'bpmn-js/dist/bpmn-modeler.production.min.js';
 import customControlsModule from '../custom';
+import listener from '../custom/listener';
 
 import propertiesPanelModule from 'bpmn-js-properties-panel';
 // providing camunda executable properties, too
 import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda';
+// import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/bpmn';
+
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json';
-// import BpmnModdle from 'bpmn-moddle';
+import BpmnModdle from 'bpmn-moddle';
 
 // moddle.fromXML(xmlStr, function(err, definitions) {
 
@@ -33,6 +36,8 @@ import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json'
 export class AppComponent implements OnInit, OnDestroy {
   private modeler: any;
   private moddle: any;
+  private xml: any;
+  private moddleDefenitions: any;
 
   constructor() {}
 
@@ -44,24 +49,58 @@ export class AppComponent implements OnInit, OnDestroy {
         parent: '#js-properties-panel'
       },
       additionalModules: [
-        // customControlsModule,
+        customControlsModule,
         propertiesPanelModule,
-        propertiesProviderModule
+        propertiesProviderModule,
+        listener
       ],
       moddleExtensions: {
         camunda: camundaModdleDescriptor
+        // var: {
+        //   "name": "Collaboration variables payload",
+        //   "uri": "http://www.graphinfotec.com/schema/xml/variables",
+        //   "prefix": "var",
+        //   "xml": {
+        //     "tagAlias": "lowerCase"
+        //   },
+        //   "types": [
+        //   ],
+        //   "emumerations": [],
+        //   "associations": []
+        // }
       },
     });
     this.modeler.get('canvas').zoom('fit-viewport');
     this.modeler.createDiagram(null, (err: any) => {
       console.log(err);
     });
-    // this.moddle = new BpmnModdle();
+    this.moddle = new BpmnModdle();
+  }
+
+  convertToModdle() {
+    if (this.xml) {
+      this.moddle.fromXML(this.xml, (err, definitions) => {
+        console.log(err, definitions);
+        this.moddleDefenitions = definitions;
+      });
+    }
+  }
+
+  convertToXML() {
+    if (this.moddleDefenitions) {
+      this.moddle.toXML(this.moddleDefenitions, (err, xml) => {
+        console.log(err, xml);
+      });
+    }
   }
 
   printToConsole() {
     this.modeler.saveXML((err, xml) => {
+
       console.log(err, xml);
+      if (xml) {
+        this.xml = xml;
+      }
 
     });
   }
